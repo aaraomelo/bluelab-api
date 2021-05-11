@@ -14,10 +14,10 @@ export class User {
   sobrenome: string;
 
   @Prop()
-  telefone: number;
+  telefone: string;
 
   @Prop()
-  cpf: number;
+  cpf: string;
 
   @Prop()
   senha: string;
