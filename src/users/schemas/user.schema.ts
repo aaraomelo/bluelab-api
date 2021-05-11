@@ -19,10 +19,6 @@ export class User {
   @Prop()
   cpf: string;
 
-  @Prop()
-  senha: string;
-
-  comparaSenha: Function;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
