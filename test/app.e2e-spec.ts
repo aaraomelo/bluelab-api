@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import {useContainer} from "class-validator";
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -12,6 +13,8 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
 
@@ -21,4 +24,38 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+
+  it('/users (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/users')
+      .send({
+        nome: "Aarão",
+        sobrenome: "Melo",
+        telefone: "11977808883",
+        cpf: "00108240223"
+      })
+      .expect(201)
+      .expect({success:true, msg:["Usuário criado com sucesso!"]});
+  });
+
+  it('/users (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/users')
+      .send({
+        nome: "Aarão",
+        sobrenome: "Melo",
+        telefone: "00000000000",
+        cpf: "00000000000"
+      })
+      .expect(400)
+      .expect({ success: false, msg: [ 'Telefone Inválido', 'CPF inválido' ] });
+  });
+
+  it('/users (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/users/00000000000')
+      .expect(400)
+      .expect({ success: false, msg: [ 'CPF inválido', 'CPF não cadastrado' ] });
+  });
+
 });
