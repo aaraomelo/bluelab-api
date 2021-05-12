@@ -11,7 +11,7 @@ import { StatusCreateUserDto } from './dto/status-create-user.dto';
   
   @Injectable()
   export class ErrorsInterceptor implements NestInterceptor {
-    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    intercept(context: ExecutionContext, next: CallHandler): Observable<StatusCreateUserDto> {
         
       return next
         .handle()
