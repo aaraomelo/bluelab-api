@@ -12,10 +12,12 @@ import { UsersModule } from './users/users.module';
     ConfigModule.forRoot({
       load: [configuration],
       envFilePath: [
-        '.env.local',
-        '.env',
-        '.env.development.local',
-        '.env.development'
+        // '.env.local',
+        // '.env',
+        // '.env.development.local',
+        // '.env.development'
+        '.env.test.local',
+        '.env.test'
       ],
       isGlobal: true,
     }),
