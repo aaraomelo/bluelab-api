@@ -13,7 +13,7 @@ export class UsersController {
   @UseInterceptors(ErrorsInterceptor)
   async create(@Body() createUserDto: CreateUserDto): Promise<StatusCreateUserDto> {
     await (this.usersService.create(createUserDto))
-    return new StatusCreateUserDto(true, ['User created!'])
+    return new StatusCreateUserDto(true, ['Usuário criado com sucesso!'])
   }
 
   @Get()
