@@ -18,8 +18,8 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(cpf: string) {
+    return await this.userModel.findOne({ cpf });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

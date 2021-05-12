@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ErrorsInterceptor } from './validations.interceptor';
 import { StatusCreateUserDto } from './dto/status-create-user.dto';
+import { FindOneParams } from './dto/find-one-params.dto';
 
 @Controller('users')
 export class UsersController {
@@ -21,9 +22,10 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Get(':cpf')
+  @UseInterceptors(ErrorsInterceptor)
+  findOne(@Param() params: FindOneParams) {
+    return this.usersService.findOne(params.cpf);
   }
 
   @Patch(':id')
