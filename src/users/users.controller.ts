@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ErrorsInterceptor } from './validations.interceptor';
+import { StatusCreateUserDto } from './dto/status-create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -10,8 +11,9 @@ export class UsersController {
 
   @Post()
   @UseInterceptors(ErrorsInterceptor)
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await (this.usersService.create(createUserDto));
+  async create(@Body() createUserDto: CreateUserDto): Promise<StatusCreateUserDto> {
+    await (this.usersService.create(createUserDto))
+    return new StatusCreateUserDto(true, ['User created!'])
   }
 
   @Get()
