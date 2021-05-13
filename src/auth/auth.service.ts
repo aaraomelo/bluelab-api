@@ -9,19 +9,17 @@ export class AuthService {
     private jwtService: JwtService,
   ) { }
 
-  async validateUser(cpf: string): Promise<any> {
+  async validateUser(cpf: string, telefone: string): Promise<any> {
     const user = await this.usersService.findOne(cpf);
-    if (user) {
+    if (user && (user.telefone === telefone)) {
       return user;
     }
     return null;
   }
 
   async login(user: any) {
-    const User = await this.usersService.findOne(user._doc.cpf);
     return {
-      token: this.jwtService.sign({ cpf: user._doc.cpf }),
-      user: User
+      token: this.jwtService.sign({ cpf: user.cpf }),
     }
   }
 

@@ -24,5 +24,6 @@ import { ExistsCPFConstraint } from './cpf.decorator';
   ],
   controllers: [UsersController],
   providers: [ExistsCPFConstraint, UsersService],
+  exports:[UsersService]
 })
 export class UsersModule {}
