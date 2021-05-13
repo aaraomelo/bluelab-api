@@ -27,6 +27,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/platform-express": "^7.6.15",
+    "class-validator": "^0.13.1",
     "cpf-cnpj-validator": "^1.0.3",
     "mongoose": "^5.12.8",
     "reflect-metadata": "^0.1.13",
