@@ -14,11 +14,11 @@ export class UsersService {
     return await createdUser.save()
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 
-  async findOne(cpf: string) {
+  async findOne(cpf: string): Promise<User>  {
     return await this.userModel.findOne({ cpf });
   }
 
