@@ -5,6 +5,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ErrorsInterceptor } from './validations.interceptor';
 import { StatusCreateUserDto } from './dto/status-create-user.dto';
 import { FindOneParams } from './dto/find-one-params.dto';
+import { SuccessFindOneDto } from './dto/sucess-find-one.dto';
+
 
 @Controller('users')
 export class UsersController {
@@ -24,8 +26,9 @@ export class UsersController {
 
   @Get(':cpf')
   @UseInterceptors(ErrorsInterceptor)
-  findOne(@Param() params: FindOneParams) {
-    return this.usersService.findOne(params.cpf);
+  async findOne(@Param() params: FindOneParams) {
+    const user = await this.usersService.findOne(params.cpf);
+    return  new SuccessFindOneDto(true, { user });
   }
 
   @Patch(':id')

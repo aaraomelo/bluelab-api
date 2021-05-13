@@ -18,11 +18,17 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/users (POST)', () => {
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .post('/users')
+      .send({
+        nome: "João",
+        sobrenome: "Carlos",
+        telefone: "11968552211",
+        cpf: "08438794912"
+      })
+      .expect(201)
+      .expect({success:true, msg:["Usuário criado com sucesso!"]});
   });
 
   it('/users (POST)', () => {
@@ -50,6 +56,12 @@ describe('AppController (e2e)', () => {
       .expect(400)
       .expect({ success: false, msg: [ 'Telefone Inválido', 'CPF inválido' ] });
   });
+
+  it('/users (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/users/08438794912')
+      .expect(200)
+    });
 
   it('/users (GET)', () => {
     return request(app.getHttpServer())

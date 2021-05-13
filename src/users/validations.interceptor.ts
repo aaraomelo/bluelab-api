@@ -16,7 +16,7 @@ import { StatusCreateUserDto } from './dto/status-create-user.dto';
       return next
         .handle()
         .pipe(catchError(err => throwError(
-          new BadRequestException(new StatusCreateUserDto(false ,err.response.message))
+          new BadRequestException(new StatusCreateUserDto(false, err.response.message))
         )));
     }
   }
