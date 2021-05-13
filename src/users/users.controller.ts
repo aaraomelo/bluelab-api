@@ -6,7 +6,7 @@ import { ErrorsInterceptor } from './validations.interceptor';
 import { StatusCreateUserDto } from './dto/status-create-user.dto';
 import { FindOneParams } from './dto/find-one-params.dto';
 import { SuccessFindOneDto } from './dto/sucess-find-one.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 
 @Controller('users')
@@ -32,14 +32,17 @@ export class UsersController {
     return  new SuccessFindOneDto(true, { user });
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @UseGuards(JwtAuthGuard)
+  @Patch(':cpf')
+  @UseInterceptors(ErrorsInterceptor)
+  update(@Param() params: FindOneParams, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(params.cpf, updateUserDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':cpf')
-  remove(@Param('cpf') cpf: string) {
-    return this.usersService.remove(cpf);
+  @UseInterceptors(ErrorsInterceptor)
+  remove(@Param() params: FindOneParams) {
+    return this.usersService.remove(params.cpf);
   }
 }

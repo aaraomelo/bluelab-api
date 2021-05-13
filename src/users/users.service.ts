@@ -22,8 +22,8 @@ export class UsersService {
     return await this.userModel.findOne({ cpf });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(cpf: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return this.userModel.findOneAndUpdate({ cpf }, updateUserDto).exec();
   }
 
   async remove(cpf: string): Promise<User>{
