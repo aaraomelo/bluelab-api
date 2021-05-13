@@ -57,17 +57,28 @@ describe('AppController (e2e)', () => {
       .expect({ success: false, msg: [ 'Telefone Inválido', 'CPF inválido' ] });
   });
 
-  it('/users (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/users/08438794912')
-      .expect(200)
-    });
-
-  it('/users (GET)', () => {
+  it('/users/:cpf (GET)', () => {
     return request(app.getHttpServer())
       .get('/users/00000000000')
       .expect(400)
       .expect({ success: false, msg: [ 'CPF inválido', 'CPF não cadastrado' ] });
+  });
+
+  it('/users/:cpf (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/users/08438794912')
+      .expect(200)
+      .expect({
+        success: true,
+        msg: {
+            user: {
+              nome: "João",
+              sobrenome: "Carlos",
+              telefone: "11968552211",
+              cpf: "08438794912"
+            }
+        }
+    });
   });
 
 });
