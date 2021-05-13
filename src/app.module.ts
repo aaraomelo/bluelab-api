@@ -7,9 +7,18 @@ import configuration from '../config/configuration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports:[
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..' , 'client'),
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'documentation'),
+      serveRoot: '/documentation'
+    }),
     ConfigModule.forRoot({
       load: [configuration],
       envFilePath: [
