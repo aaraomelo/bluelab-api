@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,6 +6,7 @@ import { ErrorsInterceptor } from './validations.interceptor';
 import { StatusCreateUserDto } from './dto/status-create-user.dto';
 import { FindOneParams } from './dto/find-one-params.dto';
 import { SuccessFindOneDto } from './dto/sucess-find-one.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 
 @Controller('users')
@@ -36,8 +37,9 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @UseGuards(JwtAuthGuard)
+  @Delete(':cpf')
+  remove(@Param('cpf') cpf: string) {
+    return this.usersService.remove(cpf);
   }
 }
