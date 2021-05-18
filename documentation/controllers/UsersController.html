@@ -146,8 +146,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/users/users.controller.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/users/users.controller.ts:18</a></div>
                 </td>
             </tr>
 
@@ -223,8 +223,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/users/users.controller.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/users/users.controller.ts:24</a></div>
                 </td>
             </tr>
 
@@ -271,8 +271,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/users/users.controller.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/users/users.controller.ts:30</a></div>
                 </td>
             </tr>
 
@@ -334,7 +334,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>remove(params: <a href="../classes/FindOneParams.html">FindOneParams</a>)</code>
                 </td>
             </tr>
 
@@ -342,14 +342,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;:id&#x27;)<br /></code>
+                    <code>@UseGuards(JwtAuthGuard)<br />@Delete(&#x27;:cpf&#x27;)<br />@UseInterceptors(ErrorsInterceptor)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/users/users.controller.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/users/users.controller.ts:45</a></div>
                 </td>
             </tr>
 
@@ -369,9 +369,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>id</td>
+                                    <td>params</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="../classes/FindOneParams.html" target="_self" >FindOneParams</a></code>
                                     </td>
 
                                     <td>
@@ -411,7 +411,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updateUserDto: <a href="../classes/UpdateUserDto.html">UpdateUserDto</a>)</code>
+<code>update(params: <a href="../classes/FindOneParams.html">FindOneParams</a>, updateUserDto: <a href="../classes/UpdateUserDto.html">UpdateUserDto</a>)</code>
                 </td>
             </tr>
 
@@ -419,14 +419,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;:id&#x27;)<br /></code>
+                    <code>@UseGuards(JwtAuthGuard)<br />@Patch(&#x27;:cpf&#x27;)<br />@UseInterceptors(ErrorsInterceptor)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/users/users.controller.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/users/users.controller.ts:38</a></div>
                 </td>
             </tr>
 
@@ -446,9 +446,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>id</td>
+                                    <td>params</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="../classes/FindOneParams.html" target="_self" >FindOneParams</a></code>
                                     </td>
 
                                     <td>
@@ -489,7 +489,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
 import { CreateUserDto } from &#x27;./dto/create-user.dto&#x27;;
 import { UpdateUserDto } from &#x27;./dto/update-user.dto&#x27;;
@@ -497,6 +497,7 @@ import { ErrorsInterceptor } from &#x27;./validations.interceptor&#x27;;
 import { StatusCreateUserDto } from &#x27;./dto/status-create-user.dto&#x27;;
 import { FindOneParams } from &#x27;./dto/find-one-params.dto&#x27;;
 import { SuccessFindOneDto } from &#x27;./dto/sucess-find-one.dto&#x27;;
+import { JwtAuthGuard } from &#x27;../auth/jwt-auth.guard&#x27;;
 
 
 @Controller(&#x27;users&#x27;)
@@ -522,14 +523,18 @@ export class UsersController {
     return  new SuccessFindOneDto(true, { user });
   }
 
-  @Patch(&#x27;:id&#x27;)
-  update(@Param(&#x27;id&#x27;) id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @UseGuards(JwtAuthGuard)
+  @Patch(&#x27;:cpf&#x27;)
+  @UseInterceptors(ErrorsInterceptor)
+  update(@Param() params: FindOneParams, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(params.cpf, updateUserDto);
   }
 
-  @Delete(&#x27;:id&#x27;)
-  remove(@Param(&#x27;id&#x27;) id: string) {
-    return this.usersService.remove(+id);
+  @UseGuards(JwtAuthGuard)
+  @Delete(&#x27;:cpf&#x27;)
+  @UseInterceptors(ErrorsInterceptor)
+  remove(@Param() params: FindOneParams) {
+    return this.usersService.remove(params.cpf);
   }
 }
 </code></pre>
